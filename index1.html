@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IPTV Ultra • Assine já</title>
+  <meta name="description" content="IPTV estável, qualidade HD/4K, milhares de canais e conteúdo on-demand. Suporte rápido e teste grátis. Assine via WhatsApp em 1 minuto." />
+  <meta name="theme-color" content="#15080b" />
+  <meta property="og:title" content="IPTV Ultra • Assine já" />
+  <meta property="og:description" content="IPTV estável, HD/4K, suporte humano e ativação imediata." />
+  <meta property="og:type" content="website" />
+  <!-- OG image em tons de vermelho -->
+  <meta property="og:image" content="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'><defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='%23E50914'/><stop offset='1' stop-color='%23FF3B3B'/></linearGradient></defs><rect fill='%2315080b' width='100%' height='100%'/><circle cx='300' cy='350' r='260' fill='url(%23g)' opacity='.35'/><text x='50%' y='55%' text-anchor='middle' font-size='80' fill='white' font-family='Arial, Helvetica, sans-serif'>IPTV ULTRA</text></svg>" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%27 x2=%271%27%3E%3Cstop stop-color=%27%23E50914%27/%3E%3Cstop offset=%271%27 stop-color=%27%23FF3B3B%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2764%27 height=%2764%27 rx=%2716%27 fill=%2715080b%27/%3E%3Cpath d=%27M12 22h40v4H12zm6 10h28v4H18zm10 10h8v4h-8z%27 fill=%27url(%23g)%27/%3E%3C/svg%3E" />
+  <style>
+    :root{
+      /* Paleta vermelha */
+      --bg: #15080b;              /* fundo escuro puxado pro vinho */
+      --card: rgba(255,255,255,.06);
+      --text: #f3f4f8;
+      --muted: #bfc3cf;
+      --brand1: #E50914;          /* vermelho principal (Netflix-like) */
+      --brand2: #FF3B3B;          /* vermelho neon */
+      --ok: #09e57d;
+      --warn: #ffb300;
+      --danger: #ff5252;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 20px;
+      --glass: blur(10px) saturate(140%);
+    }
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{
+      margin:0; font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans';
+      color:var(--text); background:var(--bg);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      background-image:
+        radial-gradient(60% 60% at 20% 10%, rgba(229,9,20,.28) 0%, transparent 60%),
+        radial-gradient(60% 60% at 80% 0%, rgba(255,59,59,.25) 0%, transparent 60%),
+        radial-gradient(80% 60% at 50% 100%, rgba(255,255,255,.05) 0%, transparent 70%);
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none }
+    .container{ width:min(1200px, 92vw); margin-inline:auto }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter: var(--glass);
+      background: linear-gradient(180deg, rgba(21,8,11,.9), rgba(21,8,11,.45));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0 }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:900; letter-spacing:.5px }
+    .logo{
+      width:38px; height:38px; border-radius:12px; display:grid; place-items:center;
+      background: linear-gradient(135deg, var(--brand1), var(--brand2));
+      box-shadow:0 8px 18px rgba(0,0,0,.35), inset 0 0 20px rgba(255,255,255,.18);
+    }
+    .menu{ display:flex; gap:22px; align-items:center }
+    .menu a{ opacity:.85 } .menu a:hover{ opacity:1 }
+    .cta{
+      padding:12px 18px; border-radius:14px; font-weight:800; letter-spacing:.3px;
+      background: linear-gradient(135deg, var(--brand1), var(--brand2));
+      box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,.18);
+      transition: transform .15s ease, box-shadow .3s ease;
+      display:inline-flex; gap:10px; align-items:center; color:#1b0205;
+      text-shadow:0 0 0 rgba(0,0,0,0);
+    }
+    .cta:hover{ transform: translateY(-2px); box-shadow:0 18px 40px rgba(229,9,20,.35) }
+    .ghost{ background:transparent; border:1px solid rgba(255,255,255,.15); color:var(--text) }
+
+    /* Hero */
+    .hero{ position:relative; padding: clamp(48px, 7vw, 110px) 0 40px }
+    .hero-grid{ display:grid; grid-template-columns: 1.1fr .9fr; gap:32px; align-items:center }
+    .kicker{ color:var(--brand2); font-weight:800; letter-spacing:.2em; font-size:.82rem; text-transform:uppercase }
+    h1{ font-size: clamp(32px, 6vw, 64px); margin:12px 0 12px; line-height:1.08; letter-spacing:-.5px }
+    .lead{ color:var(--muted); font-size: clamp(15px, 1.7vw, 18px); max-width:55ch }
+    .hero-actions{ display:flex; flex-wrap:wrap; gap:14px; margin-top:20px }
+    .stat-row{ display:flex; gap:18px; flex-wrap:wrap; margin-top:26px }
+    .pill{
+      padding:10px 14px; border-radius:999px; background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12); font-size:.9rem
+    }
+    .screen{
+      position:relative; aspect-ratio: 16/10; border-radius:24px; overflow:hidden;
+      background:
+        radial-gradient(90% 90% at 70% 20%, rgba(229,9,20,.25), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+    }
+    .scanlines{ position:absolute; inset:0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0, rgba(255,255,255,.05) 1px, transparent 1px, transparent 2px) }
+    .screen .badge{
+      position:absolute; top:16px; left:16px; padding:8px 12px; border-radius:12px;
+      background: rgba(21,8,11,.7); border:1px solid rgba(255,255,255,.15); font-weight:800
+    }
+    .wave{
+      position:absolute; inset:auto -20% -40% -20%; height:70%;
+      background: radial-gradient(60% 80% at 50% 0%, rgba(229,9,20,.45), transparent 70%);
+      filter: blur(40px); animation: float 6s ease-in-out infinite alternate;
+    }
+    @keyframes float{ to{ transform:translateY(-15px) } }
+
+    /* Seções / Cards */
+    section{ padding: clamp(50px, 7vw, 100px) 0 }
+    .section-title{ text-align:center; margin-bottom:26px }
+    .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap:22px }
+    .card{
+      background: var(--card); border:1px solid rgba(255,255,255,.12); border-radius: var(--radius);
+      padding:22px; backdrop-filter: var(--glass); box-shadow: var(--shadow);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .card:hover{ transform: translateY(-6px); border-color: rgba(255,255,255,.25) }
+    .icon{
+      width:42px; height:42px; border-radius:12px; display:grid; place-items:center;
+      background: linear-gradient(135deg, var(--brand1), var(--brand2));
+      box-shadow: inset 0 0 18px rgba(255,255,255,.25);
+    }
+    .muted{ color:var(--muted) }
+
+    /* Pricing */
+    .pricing{ display:grid; grid-template-columns: repeat(3, 1fr); gap:24px; align-items:stretch }
+    .price-card{
+      position:relative; padding:26px; border-radius:26px; background: var(--card);
+      border:1px solid rgba(255,255,255,.12); backdrop-filter: var(--glass);
+      box-shadow: var(--shadow);
+    }
+    .price-card.best{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)),
+        radial-gradient(80% 80% at 50% 0%, rgba(229,9,20,.18), transparent 70%);
+      border:1px solid rgba(255,255,255,.2);
+      transform: translateY(-6px);
+    }
+    .ribbon{
+      position:absolute; top:16px; right:16px; font-size:.75rem; font-weight:900; letter-spacing:.08em;
+      padding:8px 10px; border-radius:999px;
+      background:linear-gradient(135deg, var(--brand1), var(--brand2));
+      color:#1b0205;
+    }
+    .price{ font-size: clamp(32px, 3.8vw, 44px); font-weight:900; margin:6px 0 4px; line-height:1 }
+    .per{ color:var(--muted); font-size:.95rem }
+    .feat{ display:flex; align-items:flex-start; gap:10px; margin:10px 0; color:var(--text) }
+    .feat svg{ flex:0 0 auto; margin-top:2px }
+    .small{ font-size:.9rem }
+
+    /* FAQ */
+    .faq{ max-width:900px; margin-inline:auto }
+    .accordion{ border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,.12) }
+    .item{ background: rgba(255,255,255,.04); border-bottom:1px solid rgba(255,255,255,.08) }
+    .q{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:18px 20px; cursor:pointer; font-weight:800 }
+    .a{ max-height:0; overflow:hidden; transition:max-height .3s ease; padding:0 20px }
+    .a p{ color:var(--muted) }
+    .item.active .a{ max-height:200px; padding-bottom:16px }
+
+    /* Footer */
+    footer{ padding:40px 0 60px; color:var(--muted); border-top:1px solid rgba(255,255,255,.08) }
+    .foot-grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap:20px; align-items:center }
+
+    /* Botão flutuante WhatsApp (mantém verde oficial) */
+    .whats-fab{
+      position:fixed; right:18px; bottom:18px; z-index:70;
+      border-radius:999px; padding:14px 18px; font-weight:900;
+      background:linear-gradient(135deg, #25D366, #14b354); color:#061d0f;
+      box-shadow:0 16px 40px rgba(20,179,84,.45);
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero-grid{ grid-template-columns:1fr }
+      .grid-3{ grid-template-columns:1fr }
+      .pricing{ grid-template-columns:1fr }
+      .foot-grid{ grid-template-columns:1fr; text-align:center }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header aria-label="Topo do site">
+    <div class="container nav">
+      <a href="#" class="brand" aria-label="Página inicial IPTV Ultra">
+        <div class="logo" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#1b0205" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <span>IPTV&nbsp;Ultra</span>
+      </a>
+      <nav class="menu" aria-label="Navegação principal">
+        <a href="#recursos">Recursos</a>
+        <a href="#planos">Planos</a>
+        <a href="#faq">FAQ</a>
+        <a class="cta ghost" href="#planos">Ver preços</a>
+        <button id="themeToggle" class="cta" style="border:none; cursor:pointer" aria-label="Alternar tema">🌙</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="kicker">stream sem complicação</div>
+        <h1>IPTV estável, <span style="background:linear-gradient(135deg,var(--brand1),var(--brand2)); -webkit-background-clip:text; background-clip:text; color:transparent">HD/4K</span> e suporte humano.</h1>
+        <p class="lead">Desfrute de uma experiência premium com canais ao vivo, filmes e séries on-demand, guia de programação (EPG) e reprodução em múltiplos dispositivos. Ativação imediata e teste grátis.</p>
+        <div class="hero-actions">
+          <a href="#planos" class="cta" aria-label="Ir para os planos">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#1b0205" aria-hidden="true"><path d="M11 21h-1l1-7H7l6-11h1l-1 7h4z"/></svg>
+            Ver planos
+          </a>
+          <button class="cta ghost" onclick="openWhatsApp('Dúvidas')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M20.52 3.48A11.86 11.86 0 0 0 12.07 0C5.46.05.13 5.38.18 12A11.81 11.81 0 0 0 2.6 18.7L0 24l5.5-2.56A12 12 0 0 0 12.1 24h.01c6.62-.05 11.95-5.38 12-12a11.93 11.93 0 0 0-3.59-8.52zM12.1 21.6h-.01a9.46 9.46 0 0 1-4.82-1.31l-.35-.2-3.26 1.52.7-3.44-.22-.35A9.43 9.43 0 1 1 21.53 12a9.5 9.5 0 0 1-9.43 9.6zm5.48-7.05c-.3-.15-1.79-.88-2.06-.98s-.48-.15-.68.15-.78.98-.95 1.18-.35.22-.65.07a7.74 7.74 0 0 1-2.28-1.41 8.62 8.62 0 0 1-1.59-1.98c-.17-.3 0-.46.13-.61.13-.15.3-.35.45-.53s.2-.3.3-.5a.55.55 0 0 0 0-.52c-.07-.15-.68-1.64-.93-2.24s-.5-.52-.68-.53h-.58a1.11 1.11 0 0 0-.8.38 3.36 3.36 0 0 0-1.05 2.48 5.85 5.85 0 0 0 1.21 3.02 13.35 13.35 0 0 0 5.12 4.9c.72.31 1.28.5 1.72.64a4.13 4.13 0 0 0 1.89.12 3.08 3.08 0 0 0 2.03-1.43 2.51 2.51 0 0 0 .17-1.44c-.1-.1-.3-.15-.6-.3z"/></svg>
+            Tirar dúvidas
+          </button>
+        </div>
+        <div class="stat-row">
+          <div class="pill">⚡ Ativação imediata</div>
+          <div class="pill">🎬 VOD atualizado</div>
+          <div class="pill">🛡️ Anti-travamentos</div>
+          <div class="pill">👨‍💻 Suporte 7 dias</div>
+        </div>
+      </div>
+      <div class="screen" aria-hidden="true">
+        <div class="badge">4K • HDR • EPG</div>
+        <div class="wave"></div>
+        <div class="scanlines"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recursos -->
+  <section id="recursos">
+    <div class="container">
+      <div class="section-title">
+        <h2>Recursos que você sente na prática</h2>
+        <p class="muted">Qualidade de imagem, estabilidade e um catálogo sempre novo.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#1b0205"><path d="M21 3H3v18h18V3zm-2 12H5V5h14v10z"/></svg>
+          </div>
+          <h3>HD / Full HD / 4K</h3>
+          <p class="muted">Canais e conteúdos em alta definição, com som limpo e baixa latência.</p>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#1b0205"><path d="M12 7v10l5-5-5-5z"/></svg>
+          </div>
+          <h3>On-Demand poderoso</h3>
+          <p class="muted">Filmes, séries e conteúdos atualizados com busca rápida e categorias.</p>
+        </div>
+        <div class="card">
+          <div class="icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#1b0205"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          </div>
+          <h3>Estabilidade real</h3>
+          <p class="muted">Infra de alto desempenho, proteção anti-quedas e suporte humano rápido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planos -->
+  <section id="planos">
+    <div class="container">
+      <div class="section-title">
+        <h2>Escolha seu plano</h2>
+        <p class="muted">Sem fidelidade. Você pode cancelar quando quiser.</p>
+      </div>
+
+      <div class="pricing">
+        <!-- Essencial -->
+        <article class="price-card" aria-label="Plano Essencial">
+          <h3>Essencial</h3>
+          <div class="price">R$ 24,90 <span class="per">/ mês</span></div>
+          <p class="muted small">1 tela • HD • EPG</p>
+          <div class="spacer"></div>
+          <div class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ok)"><path d="M9 16.17l-3.5-3.5L4 14.17 9 19l12-12-1.5-1.5z"/></svg>Canais ao vivo + VOD</div>
+          <div class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ok)"><path d="M9 16.17l-3.5-3.5L4 14.17 9 19l12-12-1.5-1.5z"/></svg>Suporte via WhatsApp</div>
+          <div class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ok)"><path d="M9 16.17l-3.5-3.5L4 14.17 9 19l12-12-1.5-1.5z"/></svg>Teste grátis 24h</div>
+          <div class="spacer"></div>
+          <button class="cta" onclick="openWhatsApp('Essencial')" aria-label="Comprar plano Essencial">Comprar via WhatsApp</button>
+        </article>
+
+        <!-- Plus (Mais vendido) -->
+        <article class="price-card best" aria-label="Plano Plus">
+          <div class="ribbon">MAIS VENDIDO</div>
+          <h3>Plus</h3>
+          <div class="price">R$ 34,90 <span class="per">/ mês</span></div>
+          <p class="muted small">2 telas • Full HD • EPG+</p>
+          <div class="spacer"></div>
+          <div class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ok)"><path d="M9 16.17l-3.5-3.5L4 14.17 9 19l12-12-1.5-1.5z"/></svg>Qualidade Full HD/60fps</div>
+          <div class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ok)"><path d="M9 16.17l-3.5-3.5L4 14.17 9 19l12-12-1.5-1.5z"/></svg>2 acessos simultâneos</div>
+          <div class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ok)"><path d="M9 16.17l-3.5-3.5L4 14.17 9 19l12-12-1.5-1.5z"/></svg>Suporte prioritário</div>
+          <div class="spacer"></div>
+          <button class="cta" onclick="openWhatsApp('Plus')" aria-label="Comprar plano Plus">Comprar via WhatsApp</button>
+        </article>
+
+        <!-- Premium 4K -->
+        <article class="price-card" aria-label="Plano Premium 4K">
+          <h3>Premium 4K</h3>
+          <div class="price">R$ 49,90 <span class="per">/ mês</span></div>
+          <p class="muted small">3 telas • 4K • VOD+ • EPG+</p>
+          <div class="spacer"></div>
+          <div class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ok)"><path d="M9 16.17l-3.5-3.5L4 14.17 9 19l12-12-1.5-1.5z"/></svg>Canais em 4K onde disponível</div>
+          <div class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ok)"><path d="M9 16.17l-3.5-3.5L4 14.17 9 19l12-12-1.5-1.5z"/></svg>3 acessos simultâneos</div>
+          <div class="feat"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--ok)"><path d="M9 16.17l-3.5-3.5L4 14.17 9 19l12-12-1.5-1.5z"/></svg>VOD com lançamentos</div>
+          <div class="spacer"></div>
+          <button class="cta" onclick="openWhatsApp('Premium 4K')" aria-label="Comprar plano Premium 4K">Comprar via WhatsApp</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-title">
+        <h2>Dúvidas frequentes</h2>
+        <p class="muted">Tudo o que você precisa saber antes de assinar.</p>
+      </div>
+      <div class="faq accordion" role="tablist">
+        <div class="item">
+          <div class="q" role="button" aria-expanded="false">Como funciona a ativação?</div>
+          <div class="a"><p>Após a confirmação no WhatsApp, você recebe seu acesso e um passo a passo para instalar e assistir no seu dispositivo favorito. É rápido e simples.</p></div>
+        </div>
+        <div class="item">
+          <div class="q" role="button" aria-expanded="false">Quais dispositivos são compatíveis?</div>
+          <div class="a"><p>Smart TVs, TV Box, Fire TV, Android, iOS, computadores e até navegadores compatíveis. Indicamos os melhores apps durante a configuração.</p></div>
+        </div>
+        <div class="item">
+          <div class="q" role="button" aria-expanded="false">Posso testar antes de assinar?</div>
+          <div class="a"><p>Sim! Oferecemos teste de 24h para você avaliar qualidade e estabilidade. Peça o seu no WhatsApp.</p></div>
+        </div>
+        <div class="item">
+          <div class="q" role="button" aria-expanded="false">Há fidelidade ou multa?</div>
+          <div class="a"><p>Não. A assinatura é mensal e você pode cancelar quando quiser.</p></div>
+        </div>
+      </div>
+      <p class="muted center" style="margin-top:16px; font-size:.9rem">Disclaimer: fornecemos acesso a conteúdo autorizado. Não hospedamos material protegido por direitos autorais sem permissão.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container foot-grid">
+      <div>
+        <div class="brand">
+          <div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="#1b0205"><path d="M8 5v14l11-7z"/></svg></div>
+          <span>IPTV&nbsp;Ultra</span>
+        </div>
+        <p class="muted" style="margin-top:10px">Atendimento todos os dias • 08h — 22h • Brasil</p>
+      </div>
+      <div class="center">
+        <a href="#planos" class="cta">Assinar agora</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botão flutuante WhatsApp -->
+  <button class="whats-fab" onclick="openWhatsApp('Atendimento')" aria-label="Chamar no WhatsApp">💬 Falar no WhatsApp</button>
+
+  <script>
+    // Troque pelo seu número (formato: 55DDDNÚMERO)
+    const WHATS_NUMBER = "5599999999999";
+
+    function openWhatsApp(plan){
+      const msg = encodeURIComponent(`Olá! Quero saber/assinar o plano: ${plan}.`);
+      window.open(`https://wa.me/${WHATS_NUMBER}?text=${msg}`, "_blank", "noopener");
+    }
+
+    // FAQ accordion
+    document.querySelectorAll('.accordion .item .q').forEach(q=>{
+      q.addEventListener('click',()=>{
+        const item = q.parentElement;
+        const expanded = item.classList.toggle('active');
+        q.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      });
+    });
+
+    // Tema claro/escuro com paleta vermelha
+    const themeBtn = document.getElementById('themeToggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const saved = localStorage.getItem('theme');
+    if(saved){ applyTheme(saved); } else { applyTheme(prefersDark ? 'dark' : 'dark'); }
+
+    themeBtn.addEventListener('click', ()=>{
+      const current = document.documentElement.dataset.theme || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    function applyTheme(mode){
+      document.documentElement.dataset.theme = mode;
+      if(mode === 'light'){
+        document.documentElement.style.setProperty('--bg', '#fff7f8');
+        document.documentElement.style.setProperty('--text', '#1c0a0d');
+        document.documentElement.style.setProperty('--muted', '#5b3a40');
+        document.documentElement.style.setProperty('--card', 'rgba(255,255,255,.9)');
+        document.body.style.backgroundImage =
+          'radial-gradient(60% 60% at 20% 10%, rgba(229,9,20,.12) 0%, transparent 60%), radial-gradient(60% 60% at 80% 0%, rgba(255,59,59,.10) 0%, transparent 60%), radial-gradient(80% 60% at 50% 100%, rgba(20,20,20,.03) 0%, transparent 70%)';
+        themeBtn.textContent = '☀️';
+      }else{
+        document.documentElement.style.setProperty('--bg', '#15080b');
+        document.documentElement.style.setProperty('--text', '#f3f4f8');
+        document.documentElement.style.setProperty('--muted', '#bfc3cf');
+        document.documentElement.style.setProperty('--card', 'rgba(255,255,255,.06)');
+        document.body.style.backgroundImage =
+          'radial-gradient(60% 60% at 20% 10%, rgba(229,9,20,.28) 0%, transparent 60%), radial-gradient(60% 60% at 80% 0%, rgba(255,59,59,.25) 0%, transparent 60%), radial-gradient(80% 60% at 50% 100%, rgba(255,255,255,.05) 0%, transparent 70%)';
+        themeBtn.textContent = '🌙';
+      }
+      localStorage.setItem('theme', mode);
+    }
+
+    // Rolagem suave nas âncoras
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const id = this.getAttribute('href');
+        if (id.length > 1){
+          e.preventDefault();
+          document.querySelector(id).scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
