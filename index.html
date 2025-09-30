@@ -31,7 +31,13 @@
       --glass: blur(10px) saturate(140%);
     }
     *{ box-sizing:border-box }
-    html,body{ height:100% }
+    /* Garante que nada ultrapasse a tela */
+html, body {
+  height:100% 
+  max-width: 100%;
+  overflow-x: hidden; /* evita rolagem lateral */
+}
+
     body{
       margin:0; font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans';
       color:var(--text); background:var(--bg);
@@ -91,6 +97,8 @@
       border:1px solid rgba(255,255,255,.12);
       box-shadow: var(--shadow);
     }
+    /* Hero image responsiva */
+
     .screen img.media{
         width: 100%;
         height: 100%;
@@ -98,14 +106,18 @@
       }
       
       @media (max-width: 768px){
-        .screen{
-          aspect-ratio: auto; /* remove a caixa fixa no mobile */
+        .screen {
+          width: 100%;
+          max-width: 100%;
+          aspect-ratio: auto;   /* não força proporção no mobile */
           height: auto;
         }
-        .screen img.media{
+        
+        .screen img.media {
           width: 100%;
-          height: auto;
-          object-fit: contain; /* no mobile, não corta */
+          height: auto;          /* mantém proporção */
+          object-fit: contain;   /* mostra sempre a imagem inteira */
+          display: block;
         }
       }
     .scanlines{ position:absolute; inset:0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0, rgba(255,255,255,.05) 1px, transparent 1px, transparent 2px) }
@@ -185,11 +197,23 @@
     }
 
     /* Responsive */
-    @media (max-width:980px){
-      .hero-grid{ grid-template-columns:1fr }
-      .grid-3{ grid-template-columns:1fr }
-      .pricing{ grid-template-columns:1fr }
-      .foot-grid{ grid-template-columns:1fr; text-align:center }
+    @media (max-width: 980px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .pricing {
+        grid-template-columns: 1fr;
+      }
+      .foot-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .nav {
+        flex-wrap: wrap; /* evita menu estourar */
+      }
     }
   </style>
 </head>
@@ -361,7 +385,6 @@ Um dos principais atrativos da Unitv é a flexibilidade dos seus planos e pacote
           <div class="a"><p>Não. A assinatura é mensal e você pode cancelar quando quiser.</p></div>
         </div>
       </div>
-      <p class="muted center" style="margin-top:16px; font-size:.9rem">Disclaimer: fornecemos acesso a conteúdo autorizado. Não hospedamos material protegido por direitos autorais sem permissão.</p>
     </div>
   </section>
 
